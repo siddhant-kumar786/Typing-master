@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Test</title>
+    <link rel="stylesheet" href="stylemain.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li class="title"><span>Typing Master</span></li>
+                <div id="first">
+                    <li><a href="#">Typing Test</a></li>
+                <li class="dropdown">
+                    <a href="#">Games</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html">Typing Bubble Game</a></li>
+                        <li><a href="index2.html">Typing Speed Game</a></li>
+                        <li><a href="index3.html">Another Game</a></li>
+                    </ul>
+                </li>
+                </div>
+                
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Typing Test</h1>
+        <div id="text-container">
+            <p id="text-to-type">Loading...</p>
+        </div>
+        <textarea id="user-input" placeholder="Start typing here..." autofocus disabled></textarea>
+        <div id="stats">
+            <p>Time Remaining: <span id="time">60</span>s</p>
+            <p>Errors: <span id="errors">0</span></p>
+        </div>
+        <button id="start-button">Start Test</button>
+        <button id="reset-button" disabled>Reset Test</button>
+    </main>
+    <footer>
+        <p>&copy; 2024 Typing Master</p>
+    </footer>
+    <script src="scriptmain.js"></script>
+</body>
+</html>

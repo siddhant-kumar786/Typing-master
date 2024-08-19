@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Speed Game</title>
+    <link rel="stylesheet" href="styles2.css">
+</head>
+<body>
+    <div id="game">
+        <div id="word-container"></div>
+        <div id="score">Score: 0</div>
+        <div id="timer">Time: 30s</div>
+        <input type="text" id="text-input" placeholder="Type here..." autofocus>
+        <div id="game-over" style="display: none;">
+            <p>Game Over! Your score is <span id="final-score">0</span>.</p>
+            <button id="restart-btn">Restart</button>
+        </div>
+    </div>
+    <script src="scripts2.js"></script>
+</body>
+</html>

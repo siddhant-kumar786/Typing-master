@@ -1,0 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #ebc1c1;
+}
+
+.game-container {
+    position: relative;
+    width: 30vw;
+    height: 30vw;
+    border: 2px solid #333;
+    background-color: #fff;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.falling-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: #92c0f0;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+    box-sizing: border-box;
+    border: 1px solid rgb(48, 182, 135);
+}
+
+.missed-boxes {
+    font-size: 20px;
+    color: #900;
+    margin-bottom: 10px;
+}
+
+#typing-input {
+    width: 300px;
+    padding: 10px;
+    font-size: 16px;
+}
