@@ -5,9 +5,38 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #282c34;
-    color: #fff;
+    background-color: #c3cee2;
+    color: #000;
     font-family: Arial, sans-serif;
+}
+
+.selection-screen {
+    width: 30vw;
+    height: 15vw;
+    text-align: center;
+    background-color: #b8c1d2;
+    border-radius: 10%;
+}
+
+.selection-screen h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.selection-screen button {
+    font-size: 18px;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #b23f3f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.selection-screen button:hover {
+    background-color: #2980b9;
 }
 
 .game-container {
@@ -15,7 +44,7 @@ body {
     width: 800px;
     height: 600px;
     border: 2px solid #fff;
-    background-color: #000;
+    background-color: #a8d2ff;
     overflow: hidden;
     border-radius: 10px;
 }
@@ -24,6 +53,9 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .bubble {
@@ -31,7 +63,7 @@ body {
     width: 60px;
     height: 60px;
     background-color: #3498db;
-    border-radius: 50%; /* Makes the bubble circular */
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -41,18 +73,26 @@ body {
     user-select: none;
 }
 
-#score {
+#score, #missed {
     position: absolute;
     top: 10px;
     left: 10px;
     font-size: 24px;
     font-weight: bold;
+    color: white;
 }
+
 #missed {
-    position: absolute;
     top: 50px;
-    left: 10px;
-    font-size: 24px;
-    font-weight: bold;
     color: red;
+}
+#game-over{
+    background-color: #7171e6;
+    width: 19vw;
+    height: 8vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15%;
 }

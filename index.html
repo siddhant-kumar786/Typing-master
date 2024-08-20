@@ -3,16 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Typing Bubble Game</title>
+    <title>Document</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="game-container">
-        <div id="bubble-container"></div>
-        <div id="score">Score: 0</div>
-        <div id="missed">Missed: 0</div>
-
-    </div>
-    <script src="script.js"></script>
+    <body>
+        <div class="selection-screen">
+            <h1>Select Letter Type</h1>
+            <button id="uppercase-btn">Uppercase</button>
+            <button id="lowercase-btn">Lowercase</button>
+            <button id="mixed-btn">Mixed</button>
+        </div>
+        <div class="game-container" style="display:none;">
+            <div id="bubble-container"></div>
+            <div id="score">Score: 0</div>
+            <div id="missed">Missed: 0</div>
+        </div>
+        <script src="script.js"></script>
+    </body>
 </body>
 </html>

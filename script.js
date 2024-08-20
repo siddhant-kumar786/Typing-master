@@ -1,3 +1,5 @@
+const selectionScreen = document.querySelector('.selection-screen');
+const gameContainer = document.querySelector('.game-container');
 const bubbleContainer = document.getElementById('bubble-container');
 const scoreDisplay = document.getElementById('score');
 const missedDisplay = document.getElementById('missed');
@@ -9,24 +11,55 @@ const maxMissedBubbles = 10;
 let gameInterval;
 let moveInterval;
 let gameStarted = false;
+let letterType = 'uppercase'; // Default letter type
 
-// Function to create a new bubble
+document.getElementById('uppercase-btn').addEventListener('click', () => {
+    letterType = 'uppercase';
+    startGameSetup();
+});
+
+document.getElementById('lowercase-btn').addEventListener('click', () => {
+    letterType = 'lowercase';
+    startGameSetup();
+});
+
+document.getElementById('mixed-btn').addEventListener('click', () => {
+    letterType = 'mixed';
+    startGameSetup();
+});
+
+function startGameSetup() {
+    selectionScreen.style.display = 'none';
+    gameContainer.style.display = 'block';
+    startGame();
+}
+
 function createBubble() {
-    if (missedBubbles >= maxMissedBubbles) return; // Stop creating bubbles if the limit is reached
+    if (missedBubbles >= maxMissedBubbles) return;
 
     const bubble = document.createElement('div');
     bubble.classList.add('bubble');
-    const letter = String.fromCharCode(65 + Math.floor(Math.random() * 26)); // Random letter A-Z
+
+    let letter;
+    if (letterType === 'uppercase') {
+        letter = String.fromCharCode(65 + Math.floor(Math.random() * 26)); // A-Z
+    } else if (letterType === 'lowercase') {
+        letter = String.fromCharCode(97 + Math.floor(Math.random() * 26)); // a-z
+    } else {
+        letter = Math.random() > 0.5 ? 
+                 String.fromCharCode(65 + Math.floor(Math.random() * 26)) : 
+                 String.fromCharCode(97 + Math.floor(Math.random() * 26)); // A-Z or a-z
+    }
+
     bubble.textContent = letter;
-    bubble.style.left = `${Math.random() * (bubbleContainer.clientWidth - 60)}px`; // Random X position
-    bubble.style.top = '-60px'; // Start above the screen
-    bubble.letter = letter;
+    bubble.letter = letter; // Store the letter as is (with its case)
+    bubble.style.left = `${Math.random() * (bubbleContainer.clientWidth - 60)}px`;
+    bubble.style.top = '-60px';
     bubbleContainer.appendChild(bubble);
 }
 
-// Function to move bubbles down the screen
 function moveBubbles() {
-    if (missedBubbles >= maxMissedBubbles) return; // Stop moving bubbles if the limit is reached
+    if (missedBubbles >= maxMissedBubbles) return;
 
     const bubbles = document.querySelectorAll('.bubble');
     bubbles.forEach(bubble => {
@@ -45,56 +78,56 @@ function moveBubbles() {
     });
 }
 
-// Function to check typed letter
 function checkLetter(e) {
     if (missedBubbles >= maxMissedBubbles) return; // Ignore inputs if the game is over
 
-    const typedLetter = e.key.toUpperCase();
-    if (typedLetter === '*') {
-        document.querySelectorAll('.bubble').forEach(bubble => bubble.remove());
-    } else {
-        const bubbles = document.querySelectorAll('.bubble');
-        bubbles.forEach(bubble => {
-            if (bubble.letter === typedLetter) {
-                bubble.remove();
-                score += 1;
-                scoreDisplay.textContent = `Score: ${score}`;
-            }
-        });
+    const typedLetter = e.key; // Capture the typed letter as-is
+
+    const bubbles = document.querySelectorAll('.bubble');
+    let bubbleFound = false;
+
+    bubbles.forEach(bubble => {
+        if (bubble.textContent === typedLetter) { // Compare the letter directly with its original case
+            bubble.remove();
+            score += 1;
+            scoreDisplay.textContent = `Score: ${score}`;
+            bubbleFound = true;
+        }
+    });
+
+    if (!bubbleFound) {
+        console.log("No bubble found for letter:", typedLetter); // Debug log
     }
 }
 
-// Function to start the game
 function startGame() {
-    if (!gameStarted) {
-        gameStarted = true;
-        missedBubbles = 0;
-        score = 0;
-        bubbleSpeed = 2;
-        bubbleFrequency = 2000;
-        scoreDisplay.textContent = `Score: ${score}`;
-        missedDisplay.textContent = `Missed: ${missedBubbles}`;
+    missedBubbles = 0;
+    score = 0;
+    bubbleSpeed = 2;
+    bubbleFrequency = 2000;
+    scoreDisplay.textContent = `Score: ${score}`;
+    missedDisplay.textContent = `Missed: ${missedBubbles}`;
 
-        // Start game loop with initial settings
+    gameStarted = true;
+
+    // Start game loop with initial settings
+    gameInterval = setInterval(() => {
+        if (missedBubbles >= maxMissedBubbles) return;
+        createBubble();
+    }, bubbleFrequency);
+
+    // Increase difficulty over time
+    moveInterval = setInterval(() => {
+        if (bubbleSpeed < 10) bubbleSpeed += 0.5; // Increase speed
+        if (bubbleFrequency > 500) bubbleFrequency -= 100; // Decrease time between bubbles
+        clearInterval(gameInterval);
         gameInterval = setInterval(() => {
-            if (missedBubbles >= maxMissedBubbles) return; // Stop creating bubbles if the limit is reached
+            if (missedBubbles >= maxMissedBubbles) return;
             createBubble();
         }, bubbleFrequency);
-
-        // Increase difficulty over time
-        moveInterval = setInterval(() => {
-            if (bubbleSpeed < 10) bubbleSpeed += 0.5; // Increase speed
-            if (bubbleFrequency > 500) bubbleFrequency -= 100; // Decrease time between bubbles
-            clearInterval(gameInterval);
-            gameInterval = setInterval(() => {
-                if (missedBubbles >= maxMissedBubbles) return; // Stop creating bubbles if the limit is reached
-                createBubble();
-            }, bubbleFrequency);
-        }, 5000); // Increase difficulty every 5 seconds
-    }
+    }, 5000); // Increase difficulty every 5 seconds
 }
 
-// Function to end the game
 function endGame() {
     clearInterval(gameInterval);
     clearInterval(moveInterval);
@@ -106,7 +139,6 @@ function endGame() {
     gameOverDiv.innerHTML = `
         <p>Game Over! You missed ${missedBubbles} bubbles.</p>
         <button id="restart-btn">Start Again</button>
-        <button id="back-btn">Back</button>
     `;
     bubbleContainer.appendChild(gameOverDiv);
 
